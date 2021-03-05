@@ -22,6 +22,11 @@
                             {!! Form::close() !!}
                         @endif
                     </div>
+                    <div>
+                        @if(Auth::id() != $micropost->user_id)
+                            @include("favorites.favorite_button")
+                        @endif
+                    </div>
                 </div>
             </li>
         @endforeach

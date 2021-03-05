@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
+use App\User;
+
 class MicropostsController extends Controller
 {
     public function index()
@@ -56,5 +59,22 @@ class MicropostsController extends Controller
 
         // 前のURLへリダイレクトさせる
         return back();
+    }
+    
+    
+    public function favoriteing($id)
+    {
+        $user = User::findOrFail($id);
+        
+        
+        
+        $user->loadRelationshipCounts();
+        
+        $favoriteing = $user->favoriteing()->paginate(10);
+        
+        return view("users.favorite", [
+            "user" => $user,
+            "users" => $favoriteing,
+            ]);
     }
 }
