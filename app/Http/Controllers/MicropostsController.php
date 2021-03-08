@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\User;
 
+
+
 class MicropostsController extends Controller
 {
     public function index()
@@ -64,8 +66,9 @@ class MicropostsController extends Controller
     
     public function favoriteing($id)
     {
-        $user = User::findOrFail($id);
         
+        
+        $user = User::findOrFail($id);
         
         
         $user->loadRelationshipCounts();
@@ -74,7 +77,9 @@ class MicropostsController extends Controller
         
         return view("users.favorite", [
             "user" => $user,
-            "users" => $favoriteing,
+            "microposts" => $favoriteing,
+            
+            
             ]);
     }
 }

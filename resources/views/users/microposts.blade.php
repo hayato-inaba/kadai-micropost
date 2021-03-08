@@ -1,21 +1,29 @@
-@if (count($users) > 0)
+@if (count($microposts) > 0)
     <ul class="list-unstyled">
-        @foreach ($users as $user)
+        @foreach ($microposts as $micropost)
             <li class="media">
                 {{-- ユーザのメールアドレスをもとにGravatarを取得して表示 --}}
-                <img class="mr-2 rounded" src="{{ Gravatar::get($user->user->email, ['size' => 50]) }}" alt="">
+                <img class="mr-2 rounded" src="{{ Gravatar::get($micropost->user->email, ['size' => 50]) }}" alt="">
                 <div class="media-body">
                     <div>
-                        {{ $user->content }}
+                        {{ $micropost->user->name }}
+                    </div>
+                    <div>
+                        {{ $micropost->content }}
                     </div>
                     <div>
                         {{-- ユーザ詳細ページへのリンク --}}
-                        <p>{!! link_to_route('users.show', 'View profile', ['user' => $user->user->id]) !!}</p>
+                        <p>{!! link_to_route('users.show', 'View profile', ['user' => $micropost->user->id]) !!}</p>
                     </div>
+                    <div>
+                        @include("favorites.favorite_button")
+                    </div>
+                    
+                   
                 </div>
             </li>
         @endforeach
     </ul>
     {{-- ページネーションのリンク --}}
-    {{ $users->links() }}
+    {{ $microposts->links() }}
 @endif
